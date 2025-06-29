@@ -14,23 +14,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Java
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Grant permission to Gradle
-        run: chmod +x gradlew
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
 
-      - name: Setup Android SDK
-        uses:  android-actions/setup-android@v4
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
-
-      - name: Build APK
+      - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Upload APK
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: offline-clinic-apk
